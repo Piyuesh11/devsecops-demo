@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: log into GHCR
+      - name: log in to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
