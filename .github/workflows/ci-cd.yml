@@ -15,6 +15,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: log into GHCR
+        uses: docker/login-actions@v4
+        with:
+          registry: ghrc.io
+          username: ${{ github.actor }}
+          password: $ {{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
