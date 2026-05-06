@@ -186,8 +186,16 @@ jobs:
           echo "Updated deployment to use image: ${NEW_IMAGE}"
           grep -A 1 "image:" kubernetes/deployment.yaml
       
-      - name: Commit and push changes
-        run: |
-          git add kubernetes/deployment.yaml
-          git commit -m "Update Kubernetes deployment with new image tag: ${{ needs.docker.outputs.image_tag }} [skip ci]" || echo "No changes to commit"
-          git push
+      - nname: Commit and push changes
+  run: |
+    git config user.name "GitHub Actions"
+    git config user.email "actions@github.com"
+
+    git add kubernetes/deployment.yaml
+
+    if git diff --staged --quiet; then
+      echo "No changes to commit"
+    else
+      git commit -m "Update Kubernetes deployment [skip ci]"
+      git push
+    fi
